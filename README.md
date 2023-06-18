@@ -35,4 +35,4 @@ $ npm run start:prod
 
 ## LICENSE
 
-[GNU General Public License v3.0](https://github.com/Edward-Brock/navigation-server/blob/main/LICENSE)
+[GNU General Public License v3.0](https://github.com/Edward-Brock/navigation-server/blob/master/LICENSE)
