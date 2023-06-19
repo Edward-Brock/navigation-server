@@ -4,6 +4,7 @@ import { AppService } from "./app.service";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { SiteModule } from "./modules/site/site.module";
+import { CategoryModule } from "./modules/category/category.module";
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { SiteModule } from "./modules/site/site.module";
         autoLoadEntities: true
       })
     }),
-    SiteModule
+    SiteModule,
+    CategoryModule
   ],
   controllers: [AppController],
   providers: [AppService]

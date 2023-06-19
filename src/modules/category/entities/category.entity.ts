@@ -1,35 +1,24 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity("site")
-export class SiteEntity extends BaseEntity {
+@Entity("category")
+export class CategoryEntity extends BaseEntity {
   @PrimaryGeneratedColumn({
-    comment: "网站ID"
+    comment: "分类ID"
   })
-  id: number;
+  id: string;
   @Column({
-    comment: "网站名称"
+    comment: "分类名称"
   })
   name: string;
   @Column({
-    comment: "网站描述",
+    comment: "分类描述",
     nullable: true
   })
   description: string;
   @Column({
-    comment: "网站网址"
+    comment: "上级直属分类ID"
   })
-  url: string;
-  @Column({
-    comment: "网站 Logo",
-    nullable: true
-  })
-  logo: string;
-  @Column({
-    comment: "网站访问数",
-    type: "int",
-    default: 0
-  })
-  visit_num: number;
+  pid: string;
   @Column({
     comment: "网站可见性",
     default: true
