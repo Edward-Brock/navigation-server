@@ -1,4 +1,11 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn
+} from "typeorm";
 
 @Entity("site")
 export class SiteEntity extends BaseEntity {
@@ -6,6 +13,10 @@ export class SiteEntity extends BaseEntity {
     comment: "网站ID"
   })
   id: number;
+  @Column({
+    comment: "分类表链接字段"
+  })
+  pid: number;
   @Column({
     comment: "网站名称"
   })
@@ -40,4 +51,12 @@ export class SiteEntity extends BaseEntity {
     default: false
   })
   del_flag: boolean;
+  @CreateDateColumn({
+    comment: "网站创建日期"
+  })
+  create_time: Date;
+  @UpdateDateColumn({
+    comment: "网站更新日期"
+  })
+  update_time: Date;
 }
