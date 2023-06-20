@@ -1,11 +1,19 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn
+} from "typeorm";
 
 @Entity("category")
 export class CategoryEntity extends BaseEntity {
   @PrimaryGeneratedColumn({
     comment: "分类ID"
   })
-  id: string;
+  id: number;
   @Column({
     comment: "分类名称"
   })
@@ -43,4 +51,8 @@ export class CategoryEntity extends BaseEntity {
     comment: "分类更新时间"
   })
   update_time: Date;
+  @DeleteDateColumn({
+    comment: "分类删除时间"
+  })
+  delete_time: Date;
 }

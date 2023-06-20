@@ -23,18 +23,26 @@ export class CategoryService {
   }
 
   findAll() {
-    return `This action returns all category`;
+    return this.categoryEntityRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} category`;
+    return this.categoryEntityRepository.findOneBy({ id });
   }
 
   update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    return `This action updates a #${id} category`;
+    updateCategoryDto.update_time = new Date();
+    return this.categoryEntityRepository.update(id, updateCategoryDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} category`;
+  async remove(id: number) {
+    let del_info = await this.categoryEntityRepository.findOneBy({ id });
+    del_info.del_flag = true;
+    del_info.delete_time = new Date();
+    return {
+      code: 200,
+      state: "success",
+      message: "分类信息删除成功"
+    };
   }
 }
