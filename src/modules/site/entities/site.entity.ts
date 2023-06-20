@@ -1,7 +1,7 @@
 import {
   BaseEntity,
   Column,
-  CreateDateColumn,
+  CreateDateColumn, DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn
@@ -59,4 +59,8 @@ export class SiteEntity extends BaseEntity {
     comment: "网站更新日期"
   })
   update_time: Date;
+  @DeleteDateColumn({
+    comment: "网站删除日期"
+  })
+  delete_time: Date;
 }

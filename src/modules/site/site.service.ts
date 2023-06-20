@@ -45,18 +45,37 @@ export class SiteService {
   }
 
   findAll() {
-    return `This action returns all site`;
+    return this.siteEntityRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} site`;
+  async findOne(id: number) {
+    let visit_num_info = await this.siteEntityRepository.findOneBy({ id });
+    if (visit_num_info) {
+      console.log(`"site.service" -> ${new Date()}触发访问了 ${visit_num_info.name} ，累计访问数：${visit_num_info.visit_num}`);
+      await this.siteEntityRepository.update(id, { visit_num: visit_num_info.visit_num += 1 });
+    } else {
+      return {
+        code: 404,
+        state: "error",
+        message: "网站不存在"
+      };
+    }
+    return this.siteEntityRepository.findOneBy({ id });
   }
 
   update(id: number, updateSiteDto: UpdateSiteDto) {
-    return `This action updates a #${id} site`;
+    updateSiteDto.update_time = new Date();
+    return this.siteEntityRepository.update(id, updateSiteDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} site`;
+  async remove(id: number) {
+    let del_info = await this.siteEntityRepository.findOneBy({ id });
+    del_info.del_flag = true;
+    del_info.delete_time = new Date();
+    return {
+      code: 200,
+      state: "success",
+      message: "网站信息删除成功"
+    };
   }
 }
