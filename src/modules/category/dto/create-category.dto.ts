@@ -1,3 +1,5 @@
+import { SiteEntity } from "../../site/entities/site.entity";
+
 export class CreateCategoryDto {
   id: number;
   name: string;
@@ -8,4 +10,6 @@ export class CreateCategoryDto {
   del_flag: boolean;
   create_time: Date;
   update_time: Date;
+  delete_time: Date;
+  sites: SiteEntity[];
 }

@@ -9,6 +9,11 @@ export class SiteController {
   constructor(private readonly siteService: SiteService) {
   }
 
+  @Get("getAllData")
+  allData() {
+    return this.siteService.allData();
+  }
+
   @Post("add")
   create(@Body() createSiteDto: CreateSiteDto) {
     return this.siteService.create(createSiteDto);

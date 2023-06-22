@@ -3,10 +3,11 @@ import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
-  Entity,
+  Entity, OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from "typeorm";
+import { SiteEntity } from "../../site/entities/site.entity";
 
 @Entity("category")
 export class CategoryEntity extends BaseEntity {
@@ -55,4 +56,6 @@ export class CategoryEntity extends BaseEntity {
     comment: "分类删除时间"
   })
   delete_time: Date;
+  @OneToMany(type => SiteEntity, site => site.category)
+  sites: SiteEntity[];
 }

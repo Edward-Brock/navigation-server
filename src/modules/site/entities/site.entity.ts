@@ -2,10 +2,11 @@ import {
   BaseEntity,
   Column,
   CreateDateColumn, DeleteDateColumn,
-  Entity,
+  Entity, ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from "typeorm";
+import { CategoryEntity } from "../../category/entities/category.entity";
 
 @Entity("site")
 export class SiteEntity extends BaseEntity {
@@ -13,10 +14,6 @@ export class SiteEntity extends BaseEntity {
     comment: "网站ID"
   })
   id: number;
-  @Column({
-    comment: "分类表链接字段"
-  })
-  pid: number;
   @Column({
     comment: "网站名称"
   })
@@ -63,4 +60,6 @@ export class SiteEntity extends BaseEntity {
     comment: "网站删除日期"
   })
   delete_time: Date;
+  @ManyToOne(type => CategoryEntity, site => site.sites)
+  category: CategoryEntity;
 }

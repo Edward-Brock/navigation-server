@@ -1,6 +1,7 @@
+import { CategoryEntity } from "../../category/entities/category.entity";
+
 export class CreateSiteDto {
   id: number;
-  pid: number;
   name: string;
   description: string;
   url: string;
@@ -11,4 +12,5 @@ export class CreateSiteDto {
   create_time: Date;
   update_time: Date;
   delete_time: Date;
+  category: CategoryEntity;
 }

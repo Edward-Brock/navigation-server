@@ -17,6 +17,17 @@ export class SiteService {
   }
 
   /**
+   * 获取所有分类下的各网站信息
+   * .innerJoinAndSelect() 如果没有任何数据将不会返回本身信息
+   * .leftJoinAndSelect() 即使没有任何数据也会返回本身信息
+   */
+  async allData() {
+    return this.categoryEntityRepository.createQueryBuilder("category")
+      .innerJoinAndSelect("category.sites", "site")
+      .getMany();
+  }
+
+  /**
    * 网站添加
    * 先从分类表中查找当前 pid 是否存在
    * 不存在 - 返回报错
@@ -25,7 +36,7 @@ export class SiteService {
    */
   async create(createSiteDto: CreateSiteDto) {
     // 通过分类表查找是否存在当前分类 pid
-    const is_category = await this.categoryEntityRepository.findOneBy({ pid: Number(createSiteDto.pid) });
+    const is_category = await this.categoryEntityRepository.findOneBy({ pid: Number(createSiteDto.category) });
     if (!is_category) {
       return {
         code: 404,
