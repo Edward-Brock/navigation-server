@@ -22,9 +22,47 @@ export class SiteService {
    * .leftJoinAndSelect() 即使没有任何数据也会返回本身信息
    */
   async allData() {
-    return this.categoryEntityRepository.createQueryBuilder("category")
+    /**
+     * 获取一级分类下所有二级分类及全部网站信息
+     */
+    const categoryInfo = await this.categoryEntityRepository.createQueryBuilder("category")
       .innerJoinAndSelect("category.sites", "site")
+      /**
+       * 过滤以下 where 查找语句条件：
+       * 分类删除标记为假，分类可见性为真
+       * 网站删除标记为假，网站可见性为真
+       */
+      .where("category.del_flag = :del_flag", { del_flag: false })
+      .andWhere("category.visibility = :visibility", { visibility: true })
+      .andWhere("site.del_flag = :del_flag", { del_flag: false })
+      .andWhere("site.visibility = :visibility", { visibility: true })
       .getMany();
+
+    return getTree(categoryInfo, 0, []);
+
+    /**
+     * 将分类信息内的 pid 与 id 相结合，将二级分类递归到对应一级分类下
+     * @param list 需要处理的数组内容
+     * @param pid 起始 pid
+     * @param data 最终递归完成数组
+     */
+    function getTree(list, pid, data) {
+      // 获取所有一级
+      for (let item of list) {
+        if (item.pid == pid) {
+          data.push(item);
+        }
+      }
+      // 获取子级
+      for (let i of data) {
+        i.second_category = [];
+        getTree(list, i.id, i.second_category); // 递归调用
+        if (i.second_category.length == 0) {
+          delete i.second_category;
+        }
+      }
+      return data;
+    }
   }
 
   /**

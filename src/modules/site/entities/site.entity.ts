@@ -29,7 +29,8 @@ export class SiteEntity extends BaseEntity {
   url: string;
   @Column({
     comment: "网站 Logo",
-    nullable: true
+    nullable: true,
+    type: "text"
   })
   logo: string;
   @Column({
