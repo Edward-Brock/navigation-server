@@ -5,6 +5,7 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { SiteModule } from "./modules/site/site.module";
 import { CategoryModule } from "./modules/category/category.module";
+import { DeviceGateway } from "./modules/device/device.gateway";
 
 @Module({
   imports: [
@@ -33,7 +34,7 @@ import { CategoryModule } from "./modules/category/category.module";
     CategoryModule
   ],
   controllers: [AppController],
-  providers: [AppService]
+  providers: [AppService, DeviceGateway]
 })
 export class AppModule {
 }
