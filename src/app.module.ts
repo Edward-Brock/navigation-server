@@ -6,6 +6,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { SiteModule } from "./modules/site/site.module";
 import { CategoryModule } from "./modules/category/category.module";
 import { DeviceGateway } from "./modules/device/device.gateway";
+import { OptionModule } from "./modules/option/option.module";
 
 @Module({
   imports: [
@@ -31,7 +32,8 @@ import { DeviceGateway } from "./modules/device/device.gateway";
       })
     }),
     SiteModule,
-    CategoryModule
+    CategoryModule,
+    OptionModule
   ],
   controllers: [AppController],
   providers: [AppService, DeviceGateway]
