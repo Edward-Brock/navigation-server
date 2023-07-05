@@ -116,7 +116,7 @@ export class SiteService {
   async findOne(id: number) {
     let visit_num_info = await this.siteEntityRepository.findOneBy({ id });
     if (visit_num_info) {
-      console.log(`"site.service" -> ${new Date()}触发访问了 ${visit_num_info.name} ，累计访问数：${visit_num_info.visit_num}`);
+      console.log(`"site.service" -> ${new Date().toLocaleString()}触发访问了 ${visit_num_info.name} ，累计访问数：${visit_num_info.visit_num + 1}`);
       await this.siteEntityRepository.update(id, { visit_num: visit_num_info.visit_num += 1 });
     } else {
       return {
