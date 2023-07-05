@@ -17,6 +17,22 @@ export class SiteService {
   }
 
   /**
+   * 记录并返回当前项目所记录的分类、网站各项总数（不包含已删除的数据）
+   */
+  async totalNum() {
+    const categoryTotalNum = await this.categoryEntityRepository.count({
+      where: { del_flag: false }
+    });
+    const siteTotalNum = await this.siteEntityRepository.count({
+      where: { del_flag: false }
+    });
+    return [
+      { name: "Category Total Number", value: categoryTotalNum },
+      { name: "Site Total Number", value: siteTotalNum }
+    ];
+  }
+
+  /**
    * 获取所有分类下的各网站信息
    * .innerJoinAndSelect() 如果没有任何数据将不会返回本身信息
    * .leftJoinAndSelect() 即使没有任何数据也会返回本身信息

@@ -9,6 +9,11 @@ export class SiteController {
   constructor(private readonly siteService: SiteService) {
   }
 
+  @Get("getTotalNum")
+  totalNum() {
+    return this.siteService.totalNum();
+  }
+
   @Get("getAllData")
   allData() {
     return this.siteService.allData();
