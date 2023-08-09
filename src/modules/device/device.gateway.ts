@@ -27,7 +27,7 @@ export class DeviceGateway implements OnGatewayInit, OnGatewayConnection, OnGate
    */
   handleConnection(client: any, ...args): any {
     this.allNum += 1;
-    console.log(`有人进入，当前 Navigation 服务器人数：${this.allNum}`);
+    console.log(`${new Date()}有人进入，当前 Navigation 服务器人数：${this.allNum}`);
     this.server.emit("enter", {
       allNum: this.allNum
     });
@@ -39,7 +39,7 @@ export class DeviceGateway implements OnGatewayInit, OnGatewayConnection, OnGate
    */
   handleDisconnect(client: any): any {
     this.allNum -= 1;
-    console.log(`有人离开，当前 Navigation 服务器人数：${this.allNum}`);
+    console.log(`${new Date()}有人离开，当前 Navigation 服务器人数：${this.allNum}`);
     this.server.emit("leave", {
       allNum: this.allNum
     });
