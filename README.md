@@ -17,20 +17,20 @@
 ### 项目安装
 
 ```bash
-npm install
+pnpm install
 ```
 
 ## 项目运行
 
 ```bash
 # development
-$ npm run start
+$ pnpm start
 
 # watch mode
-$ npm run start:dev
+$ pnpm start:dev
 
 # production mode
-$ npm run start:prod
+$ pnpm start:prod
 ```
 
 ## LICENSE
