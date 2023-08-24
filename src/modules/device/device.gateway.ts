@@ -6,6 +6,12 @@ import {
 import { Server } from "socket.io";
 import * as WebSocket from "ws";
 import * as os from "os";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 @WebSocketGateway(4000, { cors: true })
 export class DeviceGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
@@ -16,7 +22,7 @@ export class DeviceGateway implements OnGatewayInit, OnGatewayConnection, OnGate
    * 初始化
    * @param server
    */
-  afterInit(server: any): any {
+  afterInit(server): any {
     console.log("Navigation WebSocket 服务器初始化");
   }
 
@@ -25,9 +31,9 @@ export class DeviceGateway implements OnGatewayInit, OnGatewayConnection, OnGate
    * @param client
    * @param args
    */
-  handleConnection(client: any, ...args): any {
+  handleConnection(client, ...args): any {
     this.allNum += 1;
-    console.log(`${new Date()}有人进入，当前 Navigation 服务器人数：${this.allNum}`);
+    console.log(`${dayjs().tz("Asia/Shanghai").format("YYYY-MM-DD HH:mm:ss")} ↓ 当前 Navigation 服务器在线 ${this.allNum} 人`);
     this.server.emit("enter", {
       allNum: this.allNum
     });
@@ -37,9 +43,9 @@ export class DeviceGateway implements OnGatewayInit, OnGatewayConnection, OnGate
    * 断开连接
    * @param client
    */
-  handleDisconnect(client: any): any {
+  handleDisconnect(client): any {
     this.allNum -= 1;
-    console.log(`${new Date()}有人离开，当前 Navigation 服务器人数：${this.allNum}`);
+    console.log(`${dayjs().tz("Asia/Shanghai").format("YYYY-MM-DD HH:mm:ss")} ↑ 当前 Navigation 服务器在线 ${this.allNum} 人`);
     this.server.emit("leave", {
       allNum: this.allNum
     });

@@ -2,11 +2,13 @@ import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import * as express from "express";
 import { ConfigService } from "@nestjs/config";
+import { logger } from "./middleware/logger/logger.middleware";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(express.urlencoded({ extended: true }));
   app.enableCors();
+  app.use(logger);
   const configService: ConfigService = app.get<ConfigService>(ConfigService);
   const http_port = configService.get("SERVER_PORT");
   const wss_port = configService.get("WEBSOCKET_SERVER_PORT");
